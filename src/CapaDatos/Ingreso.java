@@ -26,14 +26,14 @@ public class Ingreso {
         this.id_Oficina = id_Oficina;
     }
 
-    static void insertar(Ingreso ingreso) {
+    public void insertar(Ingreso ingreso) {
         Connection connection = CreandoBaseDatos.conectando("localhost", "5432", "AMADB", "postgres", "1234");
         Statement stmt = null;
         try {
             stmt = connection.createStatement();
             String sql = "INSERT INTO Ingreso (ID_Ingreso,Concepto,Monto,Mes,Fecha,Nota,OficinaID_Oficina) "
                     + "VALUES (" + ingreso.id_Ingreso + ", '" + ingreso.concepto + "', " + ingreso.monto + ","
-                    + " '" + ingreso.mes + "', "+ ingreso.fecha + ", '" + ingreso.nota + "', " + ingreso.id_Oficina + ");";
+                    + " '" + ingreso.mes + "', " + ingreso.fecha + ", '" + ingreso.nota + "', " + ingreso.id_Oficina + ");";
 
             stmt.executeUpdate(sql);
 
@@ -45,7 +45,7 @@ public class Ingreso {
         }
     }
 
-    static ArrayList<Ingreso> leer() {
+    public ArrayList<Ingreso> leer() {
         Connection connection = CreandoBaseDatos.conectando("localhost", "5432", "AMADB", "postgres", "1234");
         ArrayList<Ingreso> lista = new ArrayList<Ingreso>();
         Statement stmt = null;
@@ -75,7 +75,7 @@ public class Ingreso {
 
     }
 
-    static void actualizar(Ingreso ingreso, int Id_IngresoOld) {
+    public void actualizar(Ingreso ingreso, int Id_IngresoOld) {
         Connection connection = CreandoBaseDatos.conectando("localhost", "5432", "AMADB", "postgres", "1234");
         Statement stmt = null;
         try {
@@ -99,7 +99,7 @@ public class Ingreso {
         }
     }
 
-    static void eliminar(int Id_Ingreso) {
+    public void eliminar(int Id_Ingreso) {
         Connection connection = CreandoBaseDatos.conectando("localhost", "5432", "AMADB", "postgres", "1234");
         Statement stmt = null;
         try {
@@ -114,7 +114,7 @@ public class Ingreso {
         }
     }
 
-    static ArrayList<Ingreso> buscarXFecha(Date fecha) {
+    public ArrayList<Ingreso> buscarXFecha(Date fecha) {
         ArrayList<Ingreso> lista = leer();
         ArrayList<Ingreso> listaF = new ArrayList<Ingreso>();
         for (Ingreso i : lista) {
@@ -123,6 +123,24 @@ public class Ingreso {
             }
         }
         return listaF;
+    }
+
+    public int contarIngreso() {
+        int cantidad = 0;
+        Connection connection = CreandoBaseDatos.conectando("localhost", "5432", "AMADB", "postgres", "1234");
+        Statement stmt = null;
+        try {
+            stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT COUNT * FROM Ingreso;");
+            cantidad = rs.getInt("cantidad");
+            rs.close();
+            stmt.close();
+            connection.close();
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+        return cantidad;
     }
 
 }

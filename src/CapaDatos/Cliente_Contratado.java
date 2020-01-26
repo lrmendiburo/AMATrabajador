@@ -161,4 +161,21 @@ public class Cliente_Contratado {
         return listaF;
     }
 
+    public int contarClienteContratado() {
+        int cantidad = 0;
+        Connection connection = CreandoBaseDatos.conectando("localhost", "5432", "AMADB", "postgres", "1234");
+        Statement stmt = null;
+        try {
+            stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT COUNT * FROM Cliente_Contratado;");
+            cantidad = rs.getInt("cantidad");
+            rs.close();
+            stmt.close();
+            connection.close();
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+        return cantidad;
+    }
 }

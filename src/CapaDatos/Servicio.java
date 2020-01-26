@@ -33,8 +33,8 @@ public class Servicio {
             stmt = connection.createStatement();
             String sql = "INSERT INTO Servicio (ID_Servicio,Mes,Fecha,Nota,OficinaID_Oficina,Cliente_TitularID_ClienteTitular,Cliente_ContratadoID_ClienteContratado) "
                     + "VALUES (" + servicio.id_Servicio + ", '" + servicio.mes + "' ,"
-                    + " " + servicio.fecha + ", '" + servicio.nota + "', " + servicio.id_Oficina +
-                     ", " + servicio.id_ClienteTitular + ", " + servicio.id_ClienteContratado +");";
+                    + " " + servicio.fecha + ", '" + servicio.nota + "', " + servicio.id_Oficina
+                    + ", " + servicio.id_ClienteTitular + ", " + servicio.id_ClienteContratado + ");";
 
             stmt.executeUpdate(sql);
 
@@ -61,7 +61,7 @@ public class Servicio {
                 int id_Oficina = rs.getInt("id_Oficina");
                 int id_ClienteTitular = rs.getInt("id_ClienteTitular");
                 int id_ClienteContratado = rs.getInt("id_ClienteContratado");
-                Servicio servicio = new Servicio(id_Servicio, mes, fecha, nota, id_Oficina,id_ClienteTitular,id_ClienteContratado);
+                Servicio servicio = new Servicio(id_Servicio, mes, fecha, nota, id_Oficina, id_ClienteTitular, id_ClienteContratado);
                 lista.add(servicio);
 
             }
@@ -89,8 +89,8 @@ public class Servicio {
             int id_ClienteTitular = servicio.id_ClienteTitular;
             int id_ClienteContratado = servicio.id_ClienteContratado;
             String sql = "UPDATE Servicio set ID_Servicio=" + id_Servicio + " , Mes='" + mes + "' , "
-                    + "Fecha=" + fecha + " , Nota='" + nota + "', OficinaID_Oficina=" + id_Oficina +
-                    ", Cliente_TitularID_ClienteTitular=" + id_ClienteTitular +", Cliente_ContratadoID_ClienteContratado=" + id_ClienteContratado +" "
+                    + "Fecha=" + fecha + " , Nota='" + nota + "', OficinaID_Oficina=" + id_Oficina
+                    + ", Cliente_TitularID_ClienteTitular=" + id_ClienteTitular + ", Cliente_ContratadoID_ClienteContratado=" + id_ClienteContratado + " "
                     + "where ID_Servicio=" + id_ServicioOld + " ;";
             stmt.executeUpdate(sql);
             stmt.close();
@@ -125,6 +125,24 @@ public class Servicio {
             }
         }
         return listaF;
+    }
+
+    public int contarServicio() {
+        int cantidad = 0;
+        Connection connection = CreandoBaseDatos.conectando("localhost", "5432", "AMADB", "postgres", "1234");
+        Statement stmt = null;
+        try {
+            stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT COUNT * FROM Servicio;");
+            cantidad = rs.getInt("cantidad");
+            rs.close();
+            stmt.close();
+            connection.close();
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+        return cantidad;
     }
 
 }

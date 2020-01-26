@@ -131,32 +131,77 @@ public class VentanaAdicionarDJ08 extends javax.swing.JFrame {
         jMenu1.setText("Ingreso");
 
         jMenuItemDJ08.setText("DJ08");
+        jMenuItemDJ08.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemDJ08ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItemDJ08);
 
         jMenuItemCR09.setText("CR09");
+        jMenuItemCR09.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemCR09ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItemCR09);
 
         jMenuItemDJ05.setText("DJ05");
+        jMenuItemDJ05.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemDJ05ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItemDJ05);
 
         jMenuItemTramite.setText("Trámite");
+        jMenuItemTramite.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemTramiteActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItemTramite);
 
         jMenuItemOfimatica.setText("Ofímatica");
+        jMenuItemOfimatica.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemOfimaticaActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItemOfimatica);
 
         jMenuItemOtro.setText("Otro");
+        jMenuItemOtro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemOtroActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItemOtro);
 
         jMenuOperacionServiciosAsAt.add(jMenu1);
 
         jMenuItemGasto.setText("Gasto");
+        jMenuItemGasto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemGastoActionPerformed(evt);
+            }
+        });
         jMenuOperacionServiciosAsAt.add(jMenuItemGasto);
 
         jMenuItemServicio.setText("Servicio");
+        jMenuItemServicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemServicioActionPerformed(evt);
+            }
+        });
         jMenuOperacionServiciosAsAt.add(jMenuItemServicio);
 
         jMenuItem1.setText("Servicios Ad/At");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         jMenuOperacionServiciosAsAt.add(jMenuItem1);
 
         jMenuBarPrincipal.add(jMenuOperacionServiciosAsAt);
@@ -241,7 +286,7 @@ public class VentanaAdicionarDJ08 extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
-                    .addComponent(jSpinnerMonto, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE))
+                    .addComponent(jSpinnerMonto, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBoxMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -260,7 +305,7 @@ public class VentanaAdicionarDJ08 extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jComboBoxOficina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabelMes))
-                        .addContainerGap(55, Short.MAX_VALUE))
+                        .addContainerGap(54, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -272,6 +317,65 @@ public class VentanaAdicionarDJ08 extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    public void mostrarMesOficina(int numMes, int numOficina) {
+        jComboBoxMes.setSelectedIndex(numMes);
+        jComboBoxOficina.setSelectedIndex(numOficina);
+    }
+
+    private void jMenuItemDJ08ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDJ08ActionPerformed
+        this.dispose();
+        VentanaDJ08 ventanaDJ08 = new VentanaDJ08();
+        ventanaDJ08.show();
+    }//GEN-LAST:event_jMenuItemDJ08ActionPerformed
+
+    private void jMenuItemCR09ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCR09ActionPerformed
+        this.dispose();
+        VentanaCR09 ventanaCR09 = new VentanaCR09();
+        ventanaCR09.show();
+    }//GEN-LAST:event_jMenuItemCR09ActionPerformed
+
+    private void jMenuItemDJ05ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDJ05ActionPerformed
+        this.dispose();
+        VentanaDJ05 ventanaDJ05 = new VentanaDJ05();
+        ventanaDJ05.show();
+    }//GEN-LAST:event_jMenuItemDJ05ActionPerformed
+
+    private void jMenuItemTramiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemTramiteActionPerformed
+        this.dispose();
+        VentanaTramite ventanaTramite = new VentanaTramite();
+        ventanaTramite.show();
+    }//GEN-LAST:event_jMenuItemTramiteActionPerformed
+
+    private void jMenuItemOfimaticaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemOfimaticaActionPerformed
+        this.dispose();
+        VentanaOfimatica ventanaOfimatica = new VentanaOfimatica();
+        ventanaOfimatica.show();
+    }//GEN-LAST:event_jMenuItemOfimaticaActionPerformed
+
+    private void jMenuItemOtroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemOtroActionPerformed
+        this.dispose();
+        VentanaOtro ventanaOtro = new VentanaOtro();
+        ventanaOtro.show();
+    }//GEN-LAST:event_jMenuItemOtroActionPerformed
+
+    private void jMenuItemGastoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGastoActionPerformed
+        this.dispose();
+        VentanaGasto ventanaGasto = new VentanaGasto();
+        ventanaGasto.show();
+    }//GEN-LAST:event_jMenuItemGastoActionPerformed
+
+    private void jMenuItemServicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemServicioActionPerformed
+        this.dispose();
+        VentanaServicio ventanaServicio = new VentanaServicio();
+        ventanaServicio.show();
+    }//GEN-LAST:event_jMenuItemServicioActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        this.dispose();
+        VentanaServicioAdAt ventanaServicioAdAt = new VentanaServicioAdAt();
+        ventanaServicioAdAt.show();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments

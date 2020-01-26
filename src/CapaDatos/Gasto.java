@@ -30,7 +30,7 @@ public class Gasto {
         try {
             stmt = connection.createStatement();
             String sql = "INSERT INTO Gasto (Id_Gasto,Monto,Mes,Fecha,Nota,OficinaID_Oficina) "
-                    + "VALUES (" + gasto.id_Gasto + ", " + gasto.monto + ",'"+ gasto.mes + "',"
+                    + "VALUES (" + gasto.id_Gasto + ", " + gasto.monto + ",'" + gasto.mes + "',"
                     + " " + gasto.fecha + ", '" + gasto.nota + "', " + gasto.id_Oficina + ");";
 
             stmt.executeUpdate(sql);
@@ -120,4 +120,23 @@ public class Gasto {
         }
         return listaF;
     }
+
+    public int contarGasto() {
+        int cantidad = 0;
+        Connection connection = CreandoBaseDatos.conectando("localhost", "5432", "AMADB", "postgres", "1234");
+        Statement stmt = null;
+        try {
+            stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT COUNT * FROM Gasto;");
+            cantidad = rs.getInt("cantidad");
+            rs.close();
+            stmt.close();
+            connection.close();
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+        return cantidad;
+    }
+
 }
