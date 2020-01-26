@@ -1,0 +1,180 @@
+package CapaDatos;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.prefs.Preferences;
+
+public class CreandoBaseDatos {
+
+    static Preferences preferences = Preferences.userNodeForPackage(CreandoBaseDatos.class);
+
+    public static void main(String args[]) {
+        creandoBD();
+        crearTablas();
+    }
+
+    static void crarTodo() {
+        boolean verdadero = preferences.getBoolean("verdadero", true);
+        if (!verdadero) {
+            creandoBD();
+            crearTablas();
+            preferences.putBoolean("verdadero", true);
+        } else {
+            System.out.println("Ya esta todo creado");
+        }
+    }
+
+    static void creandoBD() {
+        Connection cnx;
+        PreparedStatement ps;
+        try {
+            cnx = (Connection) DriverManager.getConnection("jdbc:postgresql://localhost:5432/", "postgres", "1234");
+            ps = cnx.prepareStatement("CREATE DATABASE \"AMADB\"\n"
+                    + "    WITH \n"
+                    + "    OWNER = postgres\n"
+                    + "    ENCODING = 'UTF8'\n"
+                    + "    LC_COLLATE = 'Spanish_Spain.1252'\n"
+                    + "    LC_CTYPE = 'Spanish_Spain.1252'\n"
+                    + "    TABLESPACE = pg_default\n"
+                    + "    CONNECTION LIMIT = -1;");
+            ps.executeUpdate();
+            ps.close();
+            cnx.close();
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+    }
+
+    static Connection conectando(String host, String port, String database, String user, String password) {
+
+        Connection connection = null;
+        try {
+            Class.forName("org.postgresql.Driver");
+            connection = DriverManager
+                    .getConnection("jdbc:postgresql://" + host + ":" + port + "/" + database + "",
+                            "" + user + "", "" + password + "");
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return connection;
+    }
+
+    static void crearTablas() {
+        Connection connection = conectando("localhost", "5432", "AMADB", "postgres", "1234");
+        Statement stmt = null;
+        try {
+
+            stmt = connection.createStatement();
+            String sql = "CREATE TABLE Oficina (\n"
+                    + "  ID_Oficina SERIAL NOT NULL, \n"
+                    + "  Nombre     varchar(50) NOT NULL, \n"
+                    + "  Direccion  varchar(50) NOT NULL, \n"
+                    + "  Municipio  varchar(50) NOT NULL, \n"
+                    + "  Telefono   int4, \n"
+                    + "  PRIMARY KEY (ID_Oficina));\n"
+                    + "CREATE TABLE Trabajador (\n"
+                    + "  ID_Trabajador      SERIAL NOT NULL, \n"
+                    + "  Nombre             varchar(50) NOT NULL, \n"
+                    + "  Apellido           varchar(50) NOT NULL, \n"
+                    + "  Salario            float4 NOT NULL, \n"
+                    + "  Telefono1          int4, \n"
+                    + "  Telefono2          int4, \n"
+                    + "  OficinaID_Oficina2 int4 NOT NULL, \n"
+                    + "  PRIMARY KEY (ID_Trabajador));\n"
+                    + "CREATE TABLE Ingreso (\n"
+                    + "  ID_Ingreso        SERIAL NOT NULL, \n"
+                    + "  Concepto          varchar(50) NOT NULL, \n"
+                    + "  Monto             float4 NOT NULL, \n"
+                    + "  Mes               varchar(50) NOT NULL, \n"
+                    + "  Fecha             date NOT NULL, \n"
+                    + "  Nota              varchar(255), \n"
+                    + "  OficinaID_Oficina int4 NOT NULL, \n"
+                    + "  PRIMARY KEY (ID_Ingreso));\n"
+                    + "CREATE TABLE Gasto (\n"
+                    + "  Id_Gasto          SERIAL NOT NULL, \n"
+                    + "  Monto             float4 NOT NULL, \n"
+                    + "  Mes               varchar(50) NOT NULL, \n"
+                    + "  Fecha             date NOT NULL, \n"
+                    + "  Nota              varchar(255), \n"
+                    + "  OficinaID_Oficina int4 NOT NULL, \n"
+                    + "  PRIMARY KEY (Id_Gasto));\n"
+                    + "CREATE TABLE Servicio (\n"
+                    + "  ID_Servicio                            SERIAL NOT NULL, \n"
+                    + "  Mes                                    varchar(50) NOT NULL, \n"
+                    + "  Fecha                                  date NOT NULL, \n"
+                    + "  Nota                                   varchar(255), \n"
+                    + "  OficinaID_Oficina                      int4 NOT NULL, \n"
+                    + "  Cliente_TitularID_ClienteTitular       int4, \n"
+                    + "  Cliente_ContratadoID_ClienteContratado int4, \n"
+                    + "  PRIMARY KEY (ID_Servicio));\n"
+                    + "CREATE TABLE Cliente_Titular (\n"
+                    + "  ID_ClienteTitular SERIAL NOT NULL, \n"
+                    + "  Nombre            varchar(50) NOT NULL, \n"
+                    + "  Apellido          varchar(50) NOT NULL, \n"
+                    + "  Direccion         varchar(50) NOT NULL, \n"
+                    + "  Municipio         varchar(50) NOT NULL, \n"
+                    + "  Telefono1         int4, \n"
+                    + "  Telefono2         int4, \n"
+                    + "  Servicio          float4, \n"
+                    + "  Nota              varchar(255), \n"
+                    + "  OficinaID_Oficina int4 NOT NULL, \n"
+                    + "  PRIMARY KEY (ID_ClienteTitular));\n"
+                    + "CREATE TABLE Cliente_Contratado (\n"
+                    + "  ID_ClienteContratado             SERIAL NOT NULL, \n"
+                    + "  Nombre                           varchar(50) NOT NULL, \n"
+                    + "  Apellido                         varchar(50) NOT NULL, \n"
+                    + "  Direccion                        varchar(50) NOT NULL, \n"
+                    + "  Municipio                        varchar(50) NOT NULL, \n"
+                    + "  Telefono1                        int4, \n"
+                    + "  Telefono2                        int4, \n"
+                    + "  Servicio                         float4, \n"
+                    + "  Nota                             varchar(255), \n"
+                    + "  OficinaID_Oficina                int4 NOT NULL, \n"
+                    + "  Cliente_TitularID_ClienteTitular int4, \n"
+                    + "  PRIMARY KEY (ID_ClienteContratado));\n"
+                    + "CREATE TABLE Pago (\n"
+                    + "  ID_Pago             SERIAL NOT NULL, \n"
+                    + "  Concepto            varchar(50) NOT NULL, \n"
+                    + "  Monto               float4 NOT NULL, \n"
+                    + "  Nota                varchar(255), \n"
+                    + "  ServicioID_Servicio int4 NOT NULL, \n"
+                    + "  PRIMARY KEY (ID_Pago));\n"
+                    + "CREATE TABLE Actividad (\n"
+                    + "  ID_Actividad SERIAL NOT NULL, \n"
+                    + "  Nombre       varchar(50) NOT NULL, \n"
+                    + "  Descripcion  varchar(255), \n"
+                    + "  PRIMARY KEY (ID_Actividad));\n"
+                    + "CREATE TABLE Cliente_Titular_Actividad (\n"
+                    + "  Cliente_TitularID_ClienteTitular int4 NOT NULL, \n"
+                    + "  ActividadID_Actividad            int4 NOT NULL, \n"
+                    + "  PRIMARY KEY (Cliente_TitularID_ClienteTitular, \n"
+                    + "  ActividadID_Actividad));\n"
+                    + "CREATE TABLE Credencial (\n"
+                    + "  Usuario varchar(15) NOT NULL, \n"
+                    + "  Pass    varchar(15) NOT NULL, \n"
+                    + "  Nombre  varchar(255) NOT NULL, \n"
+                    + "  PRIMARY KEY (Usuario));\n"
+                    + "ALTER TABLE Pago ADD CONSTRAINT FKPago583528 FOREIGN KEY (ServicioID_Servicio) REFERENCES Servicio (ID_Servicio);\n"
+                    + "ALTER TABLE Trabajador ADD CONSTRAINT FKTrabajador97424 FOREIGN KEY (OficinaID_Oficina2) REFERENCES Oficina (ID_Oficina);\n"
+                    + "ALTER TABLE Ingreso ADD CONSTRAINT FKIngreso721159 FOREIGN KEY (OficinaID_Oficina) REFERENCES Oficina (ID_Oficina);\n"
+                    + "ALTER TABLE Gasto ADD CONSTRAINT FKGasto264628 FOREIGN KEY (OficinaID_Oficina) REFERENCES Oficina (ID_Oficina);\n"
+                    + "ALTER TABLE Servicio ADD CONSTRAINT FKServicio16365 FOREIGN KEY (OficinaID_Oficina) REFERENCES Oficina (ID_Oficina);\n"
+                    + "ALTER TABLE Cliente_Titular ADD CONSTRAINT FKCliente_Ti784069 FOREIGN KEY (OficinaID_Oficina) REFERENCES Oficina (ID_Oficina);\n"
+                    + "ALTER TABLE Cliente_Contratado ADD CONSTRAINT FKCliente_Co853757 FOREIGN KEY (OficinaID_Oficina) REFERENCES Oficina (ID_Oficina);\n"
+                    + "ALTER TABLE Cliente_Titular_Actividad ADD CONSTRAINT FKCliente_Ti384121 FOREIGN KEY (Cliente_TitularID_ClienteTitular) REFERENCES Cliente_Titular (ID_ClienteTitular);\n"
+                    + "ALTER TABLE Cliente_Titular_Actividad ADD CONSTRAINT FKCliente_Ti531162 FOREIGN KEY (ActividadID_Actividad) REFERENCES Actividad (ID_Actividad);\n"
+                    + "ALTER TABLE Cliente_Contratado ADD CONSTRAINT FKCliente_Co328014 FOREIGN KEY (Cliente_TitularID_ClienteTitular) REFERENCES Cliente_Titular (ID_ClienteTitular);\n"
+                    + "ALTER TABLE Servicio ADD CONSTRAINT FKServicio490621 FOREIGN KEY (Cliente_TitularID_ClienteTitular) REFERENCES Cliente_Titular (ID_ClienteTitular);\n"
+                    + "ALTER TABLE Servicio ADD CONSTRAINT FKServicio446251 FOREIGN KEY (Cliente_ContratadoID_ClienteContratado) REFERENCES Cliente_Contratado (ID_ClienteContratado);";
+            stmt.executeUpdate(sql);
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
+}
