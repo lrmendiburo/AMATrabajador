@@ -22,11 +22,9 @@ public class Actividad {
         Statement stmt = null;
         try {
             stmt = connection.createStatement();
-            String sql = "INSERT INTO Cliente (ID_Actividad,Nombre,Descripcion) "
-                    + "VALUES (" + actividad.id_Actividad + ", '" + actividad.nombre + "', '" + actividad.descripcion + "');";
-
+            String sql = "INSERT INTO Actividad (Nombre,Descripcion) "
+                    + "VALUES ('" + actividad.nombre + "', '" + actividad.descripcion + "');";
             stmt.executeUpdate(sql);
-
             stmt.close();
             connection.close();
         } catch (Exception e) {
@@ -48,7 +46,6 @@ public class Actividad {
                 String descripcion = rs.getString("descrpcion");
                 Actividad actividad = new Actividad(id_Actividad, nombre, descripcion);
                 lista.add(actividad);
-
             }
             rs.close();
             stmt.close();
@@ -66,10 +63,9 @@ public class Actividad {
         Statement stmt = null;
         try {
             stmt = connection.createStatement();
-            int id_Actividad = actividad.id_Actividad;
             String nombre = actividad.nombre;
             String descripcion = actividad.descripcion;
-            String sql = "UPDATE Actividad set ID_Actividad=" + id_Actividad + " , Nombre='" + nombre + "', Descripcion='" + descripcion + "' where ID_Actividad=" + ID_ActividadOld + " ;";
+            String sql = "UPDATE Actividad set Nombre='" + nombre + "', Descripcion='" + descripcion + "' where ID_Actividad=" + ID_ActividadOld + " ;";
             stmt.executeUpdate(sql);
             stmt.close();
             connection.close();
@@ -103,6 +99,24 @@ public class Actividad {
             }
         }
         return listaF;
+    }
+
+    public int contarActividad() {
+        int cantidad = 0;
+        Connection connection = CreandoBaseDatos.conectando("localhost", "5432", "AMADB", "postgres", "1234");
+        Statement stmt = null;
+        try {
+            stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT COUNT (*) FROM Actividad;");
+            cantidad = rs.getInt("cantidad");
+            rs.close();
+            stmt.close();
+            connection.close();
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+        return cantidad;
     }
 
 }

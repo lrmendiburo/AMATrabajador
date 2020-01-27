@@ -29,12 +29,10 @@ public class Gasto {
         Statement stmt = null;
         try {
             stmt = connection.createStatement();
-            String sql = "INSERT INTO Gasto (Id_Gasto,Monto,Mes,Fecha,Nota,OficinaID_Oficina) "
-                    + "VALUES (" + gasto.id_Gasto + ", " + gasto.monto + ",'" + gasto.mes + "',"
+            String sql = "INSERT INTO Gasto (Monto,Mes,Fecha,Nota,OficinaID_Oficina) "
+                    + "VALUES (" + gasto.monto + ",'" + gasto.mes + "',"
                     + " " + gasto.fecha + ", '" + gasto.nota + "', " + gasto.id_Oficina + ");";
-
             stmt.executeUpdate(sql);
-
             stmt.close();
             connection.close();
         } catch (Exception e) {
@@ -77,13 +75,12 @@ public class Gasto {
         Statement stmt = null;
         try {
             stmt = connection.createStatement();
-            int id_Gasto = gasto.id_Gasto;
             float monto = gasto.monto;
             String mes = gasto.mes;
             Date fecha = gasto.fecha;
             String nota = gasto.nota;
             int id_Oficina = gasto.id_Oficina;
-            String sql = "UPDATE Gasto set Id_Gasto=" + id_Gasto + " , Monto=" + monto + " , Mes='" + mes + "' , "
+            String sql = "UPDATE Gasto set Monto=" + monto + " , Mes='" + mes + "' , "
                     + "Fecha=" + fecha + " , Nota='" + nota + "', OficinaID_Oficina=" + id_Oficina + " "
                     + "where Id_Gasto=" + Id_GastoOld + " ;";
             stmt.executeUpdate(sql);
@@ -127,7 +124,7 @@ public class Gasto {
         Statement stmt = null;
         try {
             stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT COUNT * FROM Gasto;");
+            ResultSet rs = stmt.executeQuery("SELECT COUNT (*) FROM Gasto;");
             cantidad = rs.getInt("cantidad");
             rs.close();
             stmt.close();

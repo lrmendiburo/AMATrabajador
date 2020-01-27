@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class Oficina {
 
@@ -27,12 +26,10 @@ public class Oficina {
         Statement stmt = null;
         try {
             stmt = connection.createStatement();
-            String sql = "INSERT INTO Oficina (ID_Oficina,Nombre,Direccion,Municipio,Telefono) "
-                    + "VALUES (" + oficina.id_Oficina + ", '" + oficina.nombre + "' ,"
+            String sql = "INSERT INTO Oficina (Nombre,Direccion,Municipio,Telefono) "
+                    + "VALUES ('" + oficina.nombre + "' ,"
                     + " '" + oficina.direccion + "', '" + oficina.municipio + "', " + oficina.telefono + ");";
-
             stmt.executeUpdate(sql);
-
             stmt.close();
             connection.close();
         } catch (Exception e) {
@@ -56,7 +53,6 @@ public class Oficina {
                 int telefono = rs.getInt("telefono");
                 Oficina oficina = new Oficina(id_Oficina, nombre, direccion, municipio, telefono);
                 lista.add(oficina);
-
             }
             rs.close();
             stmt.close();
@@ -74,12 +70,11 @@ public class Oficina {
         Statement stmt = null;
         try {
             stmt = connection.createStatement();
-            int id_Oficina = oficina.id_Oficina;
             String nombre = oficina.nombre;
             String direccion = oficina.direccion;
             String municipio = oficina.municipio;
             int telefono = oficina.telefono;
-            String sql = "UPDATE Oficina set ID_Oficina=" + id_Oficina + " , Nombre='" + nombre + "' , "
+            String sql = "UPDATE Oficina set Nombre='" + nombre + "' , "
                     + "Direccion='" + direccion + "' , Municipio='" + municipio + "', Telefono=" + telefono + " "
                     + "where ID_Oficina=" + id_OficinaOld + " ;";
             stmt.executeUpdate(sql);
@@ -123,7 +118,7 @@ public class Oficina {
         Statement stmt = null;
         try {
             stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT COUNT * FROM Oficina;");
+            ResultSet rs = stmt.executeQuery("SELECT COUNT (*) FROM Oficina;");
             cantidad = rs.getInt("cantidad");
             rs.close();
             stmt.close();

@@ -31,12 +31,10 @@ public class Ingreso {
         Statement stmt = null;
         try {
             stmt = connection.createStatement();
-            String sql = "INSERT INTO Ingreso (ID_Ingreso,Concepto,Monto,Mes,Fecha,Nota,OficinaID_Oficina) "
-                    + "VALUES (" + ingreso.id_Ingreso + ", '" + ingreso.concepto + "', " + ingreso.monto + ","
+            String sql = "INSERT INTO Ingreso (Concepto,Monto,Mes,Fecha,Nota,OficinaID_Oficina) "
+                    + "VALUES ('" + ingreso.concepto + "', " + ingreso.monto + ","
                     + " '" + ingreso.mes + "', " + ingreso.fecha + ", '" + ingreso.nota + "', " + ingreso.id_Oficina + ");";
-
             stmt.executeUpdate(sql);
-
             stmt.close();
             connection.close();
         } catch (Exception e) {
@@ -62,7 +60,6 @@ public class Ingreso {
                 int id_Oficina = rs.getInt("id_Oficina");
                 Ingreso ingreso = new Ingreso(id_Ingreso, concepto, monto, mes, fecha, nota, id_Oficina);
                 lista.add(ingreso);
-
             }
             rs.close();
             stmt.close();
@@ -72,7 +69,6 @@ public class Ingreso {
             System.exit(0);
         }
         return lista;
-
     }
 
     public void actualizar(Ingreso ingreso, int Id_IngresoOld) {
@@ -80,14 +76,13 @@ public class Ingreso {
         Statement stmt = null;
         try {
             stmt = connection.createStatement();
-            int id_Ingreso = ingreso.id_Ingreso;
             String concepto = ingreso.concepto;
             float monto = ingreso.monto;
             String mes = ingreso.mes;
             Date fecha = ingreso.fecha;
             String nota = ingreso.nota;
             int id_Oficina = ingreso.id_Oficina;
-            String sql = "UPDATE Ingreso set ID_Ingreso=" + id_Ingreso + " , Concepto='" + concepto + "' , " + " , Monto=" + monto + " , "
+            String sql = "UPDATE Ingreso set Concepto='" + concepto + "' , " + " , Monto=" + monto + " , "
                     + "Mes='" + mes + "' , Fecha=" + fecha + " , Nota='" + nota + "', OficinaID_Oficina=" + id_Oficina + " "
                     + "where Id_Gasto=" + Id_IngresoOld + " ;";
             stmt.executeUpdate(sql);
@@ -131,7 +126,7 @@ public class Ingreso {
         Statement stmt = null;
         try {
             stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT COUNT * FROM Ingreso;");
+            ResultSet rs = stmt.executeQuery("SELECT COUNT (*) FROM Ingreso;");
             cantidad = rs.getInt("cantidad");
             rs.close();
             stmt.close();

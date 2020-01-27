@@ -13,17 +13,15 @@ public class Servicio {
     Date fecha;
     String nota;
     int id_Oficina;
-    int id_ClienteTitular;
-    int id_ClienteContratado;
+    int id_Cliente;
 
-    public Servicio(int id_Servicio, String mes, Date fecha, String nota, int id_Oficina, int id_ClienteTitular, int id_ClienteContratado) {
+    public Servicio(int id_Servicio, String mes, Date fecha, String nota, int id_Oficina, int id_Cliente) {
         this.id_Servicio = id_Servicio;
         this.mes = mes;
         this.fecha = fecha;
         this.nota = nota;
         this.id_Oficina = id_Oficina;
-        this.id_ClienteTitular = id_ClienteTitular;
-        this.id_ClienteContratado = id_ClienteContratado;
+        this.id_Cliente = id_Cliente;
     }
 
     static void insertar(Servicio servicio) {
@@ -31,13 +29,11 @@ public class Servicio {
         Statement stmt = null;
         try {
             stmt = connection.createStatement();
-            String sql = "INSERT INTO Servicio (ID_Servicio,Mes,Fecha,Nota,OficinaID_Oficina,Cliente_TitularID_ClienteTitular,Cliente_ContratadoID_ClienteContratado) "
-                    + "VALUES (" + servicio.id_Servicio + ", '" + servicio.mes + "' ,"
+            String sql = "INSERT INTO Servicio (Mes,Fecha,Nota,OficinaID_Oficina,ClienteID_Cliente) "
+                    + "VALUES ('" + servicio.mes + "' ,"
                     + " " + servicio.fecha + ", '" + servicio.nota + "', " + servicio.id_Oficina
-                    + ", " + servicio.id_ClienteTitular + ", " + servicio.id_ClienteContratado + ");";
-
+                    + ", " + servicio.id_Cliente + ");";
             stmt.executeUpdate(sql);
-
             stmt.close();
             connection.close();
         } catch (Exception e) {
@@ -59,9 +55,8 @@ public class Servicio {
                 Date fecha = rs.getDate("fecha");
                 String nota = rs.getString("nota");
                 int id_Oficina = rs.getInt("id_Oficina");
-                int id_ClienteTitular = rs.getInt("id_ClienteTitular");
-                int id_ClienteContratado = rs.getInt("id_ClienteContratado");
-                Servicio servicio = new Servicio(id_Servicio, mes, fecha, nota, id_Oficina, id_ClienteTitular, id_ClienteContratado);
+                int id_Cliente = rs.getInt("id_ClienteTitular");
+                Servicio servicio = new Servicio(id_Servicio, mes, fecha, nota, id_Oficina, id_Cliente);
                 lista.add(servicio);
 
             }
@@ -81,16 +76,14 @@ public class Servicio {
         Statement stmt = null;
         try {
             stmt = connection.createStatement();
-            int id_Servicio = servicio.id_Servicio;
             String mes = servicio.mes;
             Date fecha = servicio.fecha;
             String nota = servicio.nota;
             int id_Oficina = servicio.id_Oficina;
-            int id_ClienteTitular = servicio.id_ClienteTitular;
-            int id_ClienteContratado = servicio.id_ClienteContratado;
-            String sql = "UPDATE Servicio set ID_Servicio=" + id_Servicio + " , Mes='" + mes + "' , "
+            int id_Cliente = servicio.id_Cliente;
+            String sql = "UPDATE Servicio set Mes='" + mes + "' , "
                     + "Fecha=" + fecha + " , Nota='" + nota + "', OficinaID_Oficina=" + id_Oficina
-                    + ", Cliente_TitularID_ClienteTitular=" + id_ClienteTitular + ", Cliente_ContratadoID_ClienteContratado=" + id_ClienteContratado + " "
+                    + ", ClienteID_Cliente=" + id_Cliente + " "
                     + "where ID_Servicio=" + id_ServicioOld + " ;";
             stmt.executeUpdate(sql);
             stmt.close();
@@ -133,7 +126,7 @@ public class Servicio {
         Statement stmt = null;
         try {
             stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT COUNT * FROM Servicio;");
+            ResultSet rs = stmt.executeQuery("SELECT COUNT (*) FROM Servicio;");
             cantidad = rs.getInt("cantidad");
             rs.close();
             stmt.close();

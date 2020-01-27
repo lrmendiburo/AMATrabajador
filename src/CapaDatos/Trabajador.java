@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class Trabajador {
 
@@ -15,8 +14,9 @@ public class Trabajador {
     int telefono1;
     int telefono2;
     int id_Oficina;
+    String usuario;
 
-    public Trabajador(int id_Trabajador, String nombre, String apellido, float salario, int telefono1, int telefono2, int id_Oficina) {
+    public Trabajador(int id_Trabajador, String nombre, String apellido, float salario, int telefono1, int telefono2, int id_Oficina, String usuario) {
         this.id_Trabajador = id_Trabajador;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -24,6 +24,7 @@ public class Trabajador {
         this.telefono1 = telefono1;
         this.telefono2 = telefono2;
         this.id_Oficina = id_Oficina;
+        this.usuario = usuario;
     }
 
     static void insertar(Trabajador trabajador) {
@@ -31,13 +32,11 @@ public class Trabajador {
         Statement stmt = null;
         try {
             stmt = connection.createStatement();
-            String sql = "INSERT INTO Trabajador (ID_Trabajador,Nombre,Apellido,Salario,Telefono1,Telefono2,OficinaID_Oficina2) "
+            String sql = "INSERT INTO Trabajador (ID_Trabajador,Nombre,Apellido,Salario,Telefono1,Telefono2,OficinaID_Oficina, CredencialUsuario) "
                     + "VALUES (" + trabajador.id_Trabajador + ", '" + trabajador.nombre + "', '" + trabajador.apellido + "',"
                     + " " + trabajador.salario + ", " + trabajador.telefono1 + ", "
-                    + trabajador.telefono2 + ", " + trabajador.id_Oficina + ");";
-
+                    + trabajador.telefono2 + ", " + trabajador.id_Oficina + ", '" + trabajador.usuario + "');";
             stmt.executeUpdate(sql);
-
             stmt.close();
             connection.close();
         } catch (Exception e) {
@@ -61,9 +60,9 @@ public class Trabajador {
                 int telefono1 = rs.getInt("telefono1");
                 int telefono2 = rs.getInt("telefono2");
                 int id_Oficina = rs.getInt("id_Oficina");
-                Trabajador trabajador = new Trabajador(id_Trabajador, nombre, apellido, salario, telefono1, telefono2, id_Oficina);
+                String usuario = rs.getString("usuario");
+                Trabajador trabajador = new Trabajador(id_Trabajador, nombre, apellido, salario, telefono1, telefono2, id_Oficina, usuario);
                 lista.add(trabajador);
-
             }
             rs.close();
             stmt.close();
@@ -73,7 +72,6 @@ public class Trabajador {
             System.exit(0);
         }
         return lista;
-
     }
 
     static void actualizar(Trabajador trabajador, int Id_TrabajadorOld) {
@@ -88,10 +86,12 @@ public class Trabajador {
             int telefono1 = trabajador.telefono1;
             int telefono2 = trabajador.telefono2;
             int id_Oficina = trabajador.id_Oficina;
+            String usuario = trabajador.usuario;
             String sql = "UPDATE Trabajador set ID_Trabajador=" + id_Trabajador + " , Nombre='" + nombre
                     + "' , " + " , Apellido='" + apellido + "' , " + "Salario=" + salario
                     + " , Telefono1='" + telefono1 + "',  Telefono2=" + telefono2 + ""
-                    + "  OficinaID_Oficina2=" + id_Oficina + "where ID_Trabajador=" + Id_TrabajadorOld + " ;";
+                    + "  OficinaID_Oficina=" + id_Oficina + "  CredencialUsuario='" + usuario + "' "
+                    + "where ID_Trabajador=" + Id_TrabajadorOld + " ;";
             stmt.executeUpdate(sql);
             stmt.close();
             connection.close();
@@ -127,4 +127,21 @@ public class Trabajador {
         return listaF;
     }
 
+    public int contarTrabajador() {
+        int cantidad = 0;
+        Connection connection = CreandoBaseDatos.conectando("localhost", "5432", "AMADB", "postgres", "1234");
+        Statement stmt = null;
+        try {
+            stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT COUNT (*) FROM Trabajador;");
+            cantidad = rs.getInt("cantidad");
+            rs.close();
+            stmt.close();
+            connection.close();
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+        return cantidad;
+    }
 }

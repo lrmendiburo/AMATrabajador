@@ -26,12 +26,10 @@ public class Pago {
         Statement stmt = null;
         try {
             stmt = connection.createStatement();
-            String sql = "INSERT INTO Pago (ID_Pago,Concepto,Monto,Nota,ServicioID_Servicio) "
-                    + "VALUES (" + pago.id_Pago + ", '" + pago.concepto + "' ,"
-                    + " " + pago.monto + ", '" + pago.nota + "', " + pago.id_Servicio + ");";
-
+            String sql = "INSERT INTO Pago (Concepto,Monto,Nota,ServicioID_Servicio) "
+                    + "VALUES ('" + pago.concepto + "' ,"
+                    + pago.monto + ", '" + pago.nota + "', " + pago.id_Servicio + ");";
             stmt.executeUpdate(sql);
-
             stmt.close();
             connection.close();
         } catch (Exception e) {
@@ -52,10 +50,9 @@ public class Pago {
                 String concepto = rs.getString("concepto");
                 float monto = rs.getFloat("monto");
                 String nota = rs.getString("nota");
-                int id_Servicio = rs.getInt("telefono");
+                int id_Servicio = rs.getInt("id_Servicio");
                 Pago pago = new Pago(id_Pago, concepto, monto, nota, id_Servicio);
                 lista.add(pago);
-
             }
             rs.close();
             stmt.close();
@@ -73,12 +70,11 @@ public class Pago {
         Statement stmt = null;
         try {
             stmt = connection.createStatement();
-            int id_Pago = pago.id_Pago;
             String concepto = pago.concepto;
             float monto = pago.monto;
             String nota = pago.nota;
             int id_Servicio = pago.id_Servicio;
-            String sql = "UPDATE Pago set ID_Pago=" + id_Pago + " , Concepto='" + concepto + "' , "
+            String sql = "UPDATE Pago set Concepto='" + concepto + "' , "
                     + "Monto=" + monto + " , Nota='" + nota + "', ServicioID_Servicio=" + id_Servicio + " "
                     + "where ID_Pago=" + id_PagoOld + " ;";
             stmt.executeUpdate(sql);
@@ -122,7 +118,7 @@ public class Pago {
         Statement stmt = null;
         try {
             stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT COUNT * FROM Pago;");
+            ResultSet rs = stmt.executeQuery("SELECT COUNT (*) FROM Pago;");
             cantidad = rs.getInt("cantidad");
             rs.close();
             stmt.close();
