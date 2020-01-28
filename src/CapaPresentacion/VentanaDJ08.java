@@ -336,9 +336,10 @@ public class VentanaDJ08 extends javax.swing.JFrame {
     private void jButtonAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdicionarActionPerformed
         int mes=jComboBoxMes.getSelectedIndex();
         int oficina=jComboBoxOficina.getSelectedIndex();
-        VentanaAdicionarDJ08 ventanaAdicionarDJ08=new VentanaAdicionarDJ08();
-        ventanaAdicionarDJ08.setVisible(true);
-        ventanaAdicionarDJ08.mostrarMesOficina(mes, oficina);
+        VentanaAdicionarIngreso ventanaAdicionarIngreso=new VentanaAdicionarIngreso();
+        ventanaAdicionarIngreso.setVisible(true);
+        ventanaAdicionarIngreso.mostrarMesOficina(mes, oficina);
+        ventanaAdicionarIngreso.dj08();
         this.dispose();        
     }//GEN-LAST:event_jButtonAdicionarActionPerformed
 

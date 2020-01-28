@@ -78,6 +78,11 @@ public class VentanaTramite extends javax.swing.JFrame {
         jLabelMes1.setText("Mes:");
 
         jButtonAdicionar.setText("Adicionar");
+        jButtonAdicionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAdicionarActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setText("Trámites");
@@ -329,6 +334,16 @@ public class VentanaTramite extends javax.swing.JFrame {
         VentanaServicioAdAt ventanaServicioAdAt = new VentanaServicioAdAt();
         ventanaServicioAdAt.show();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jButtonAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdicionarActionPerformed
+        int mes=jComboBoxMes.getSelectedIndex();
+        int oficina=jComboBoxOficina.getSelectedIndex();
+        VentanaAdicionarIngreso ventanaAdicionarIngreso=new VentanaAdicionarIngreso();
+        ventanaAdicionarIngreso.setVisible(true);
+        ventanaAdicionarIngreso.mostrarMesOficina(mes, oficina);
+        ventanaAdicionarIngreso.tramite();
+        this.dispose();
+    }//GEN-LAST:event_jButtonAdicionarActionPerformed
 
     /**
      * @param args the command line arguments
