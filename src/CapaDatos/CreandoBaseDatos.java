@@ -16,7 +16,7 @@ public class CreandoBaseDatos {
         crearTablas();
     }
 
-    static void crarTodo() {
+    public static void crarTodo() {
         boolean verdadero = preferences.getBoolean("verdadero", true);
         if (!verdadero) {
             creandoBD();
@@ -27,7 +27,7 @@ public class CreandoBaseDatos {
         }
     }
 
-    static void creandoBD() {
+    public static void creandoBD() {
         Connection cnx;
         PreparedStatement ps;
         try {
@@ -48,7 +48,7 @@ public class CreandoBaseDatos {
         }
     }
 
-    static Connection conectando(String host, String port, String database, String user, String password) {
+    public static Connection conectando(String host, String port, String database, String user, String password) {
 
         Connection connection = null;
         try {
@@ -62,7 +62,7 @@ public class CreandoBaseDatos {
         return connection;
     }
 
-    static void crearTablas() {
+    public static void crearTablas() {
         Connection connection = conectando("localhost", "5432", "AMADB", "postgres", "1234");
         Statement stmt = null;
         try {

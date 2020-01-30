@@ -107,6 +107,7 @@ public class VentanaAdicionarServicio extends javax.swing.JFrame {
         jSpinnerDate.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(), null, null, java.util.Calendar.DAY_OF_WEEK_IN_MONTH));
 
         jComboBoxMes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" }));
+        jComboBoxMes.setEnabled(false);
 
         jLabelMes1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabelMes1.setText("Mes:");

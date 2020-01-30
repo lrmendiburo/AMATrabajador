@@ -7,10 +7,10 @@ import java.util.ArrayList;
 
 public class Credencial {
 
-    String usuario;
-    String pass;
-    String nombre;
-    String rol;
+    static String usuario;
+    static String pass;
+    static String nombre;
+    static String rol;
 
     public Credencial(String usuario, String pass, String nombre, String rol) {
         this.usuario = usuario;
@@ -19,7 +19,41 @@ public class Credencial {
         this.rol = rol;
     }
 
-    static void insertar(Credencial credencial) {
+    public static String getUsuario() {
+        return usuario;
+    }
+
+    public static String getPass() {
+        return pass;
+    }
+
+    public static String getNombre() {
+        return nombre;
+    }
+
+    public static String getRol() {
+        return rol;
+    }
+
+    public static void setUsuario(String usuario) {
+        Credencial.usuario = usuario;
+    }
+
+    public static void setPass(String pass) {
+        Credencial.pass = pass;
+    }
+
+    public static void setNombre(String nombre) {
+        Credencial.nombre = nombre;
+    }
+
+    public static void setRol(String rol) {
+        Credencial.rol = rol;
+    }
+    
+    
+
+    public static void insertar(Credencial credencial) {
         Connection connection = CreandoBaseDatos.conectando("localhost", "5432", "AMADB", "postgres", "1234");
         Statement stmt = null;
         try {
@@ -36,7 +70,7 @@ public class Credencial {
         }
     }
 
-    static ArrayList<Credencial> leer() {
+    public static ArrayList<Credencial> leer() {
         Connection connection = CreandoBaseDatos.conectando("localhost", "5432", "AMADB", "postgres", "1234");
         ArrayList<Credencial> lista = new ArrayList<Credencial>();
         Statement stmt = null;
@@ -61,7 +95,7 @@ public class Credencial {
         return lista;
     }
 
-    static void actualizar(Credencial credencial, String usuarioOld) {
+    public static void actualizar(Credencial credencial, String usuarioOld) {
         Connection connection = CreandoBaseDatos.conectando("localhost", "5432", "AMADB", "postgres", "1234");
         Statement stmt = null;
         try {
@@ -82,7 +116,7 @@ public class Credencial {
         }
     }
 
-    static void eliminar(String Usuario) {
+    public static void eliminar(String Usuario) {
         Connection connection = CreandoBaseDatos.conectando("localhost", "5432", "AMADB", "postgres", "1234");
         Statement stmt = null;
         try {
@@ -97,7 +131,7 @@ public class Credencial {
         }
     }
 
-    static ArrayList<Credencial> buscarXNombre(String nombre) {
+    public static ArrayList<Credencial> buscarXNombre(String nombre) {
         ArrayList<Credencial> lista = leer();
         ArrayList<Credencial> listaF = new ArrayList<Credencial>();
         for (Credencial c : lista) {
@@ -108,7 +142,7 @@ public class Credencial {
         return listaF;
     }
 
-    public int contarCredencial() {
+    public static int contarCredencial() {
         int cantidad = 0;
         Connection connection = CreandoBaseDatos.conectando("localhost", "5432", "AMADB", "postgres", "1234");
         Statement stmt = null;

@@ -7,11 +7,11 @@ import java.util.ArrayList;
 
 public class Oficina {
 
-    int id_Oficina;
-    String nombre;
-    String direccion;
-    String municipio;
-    int telefono;
+    static int id_Oficina;
+    static String nombre;
+    static String direccion;
+    static String municipio;
+    static int telefono;
 
     public Oficina(int id_Oficina, String nombre, String direccion, String municipio, int telefono) {
         this.id_Oficina = id_Oficina;
@@ -21,7 +21,49 @@ public class Oficina {
         this.telefono = telefono;
     }
 
-    static void insertar(Oficina oficina) {
+    public static int getId_Oficina() {
+        return id_Oficina;
+    }
+
+    public static String getNombre() {
+        return nombre;
+    }
+
+    public static String getDireccion() {
+        return direccion;
+    }
+
+    public static String getMunicipio() {
+        return municipio;
+    }
+
+    public static int getTelefono() {
+        return telefono;
+    }
+
+    public static void setId_Oficina(int id_Oficina) {
+        Oficina.id_Oficina = id_Oficina;
+    }
+
+    public static void setNombre(String nombre) {
+        Oficina.nombre = nombre;
+    }
+
+    public static void setDireccion(String direccion) {
+        Oficina.direccion = direccion;
+    }
+
+    public static void setMunicipio(String municipio) {
+        Oficina.municipio = municipio;
+    }
+
+    public static void setTelefono(int telefono) {
+        Oficina.telefono = telefono;
+    }
+    
+    
+    
+    public static void insertar(Oficina oficina) {
         Connection connection = CreandoBaseDatos.conectando("localhost", "5432", "AMADB", "postgres", "1234");
         Statement stmt = null;
         try {
@@ -38,7 +80,7 @@ public class Oficina {
         }
     }
 
-    static ArrayList<Oficina> leer() {
+    public static ArrayList<Oficina> leer() {
         Connection connection = CreandoBaseDatos.conectando("localhost", "5432", "AMADB", "postgres", "1234");
         ArrayList<Oficina> lista = new ArrayList<Oficina>();
         Statement stmt = null;
@@ -65,7 +107,7 @@ public class Oficina {
 
     }
 
-    static void actualizar(Oficina oficina, int id_OficinaOld) {
+    public static void actualizar(Oficina oficina, int id_OficinaOld) {
         Connection connection = CreandoBaseDatos.conectando("localhost", "5432", "AMADB", "postgres", "1234");
         Statement stmt = null;
         try {
@@ -86,7 +128,7 @@ public class Oficina {
         }
     }
 
-    static void eliminar(int id_Oficina) {
+    public static void eliminar(int id_Oficina) {
         Connection connection = CreandoBaseDatos.conectando("localhost", "5432", "AMADB", "postgres", "1234");
         Statement stmt = null;
         try {
@@ -101,7 +143,7 @@ public class Oficina {
         }
     }
 
-    static ArrayList<Oficina> buscarXFecha(String nombre) {
+    public static ArrayList<Oficina> buscarXNombre(String nombre) {
         ArrayList<Oficina> lista = leer();
         ArrayList<Oficina> listaF = new ArrayList<Oficina>();
         for (Oficina o : lista) {
@@ -112,7 +154,7 @@ public class Oficina {
         return listaF;
     }
 
-    public int contarOficina() {
+    public static int contarOficina() {
         int cantidad = 0;
         Connection connection = CreandoBaseDatos.conectando("localhost", "5432", "AMADB", "postgres", "1234");
         Statement stmt = null;

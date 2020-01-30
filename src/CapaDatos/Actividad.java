@@ -7,9 +7,9 @@ import java.util.ArrayList;
 
 public class Actividad {
 
-    int id_Actividad;
-    String nombre;
-    String descripcion;
+    static int id_Actividad;
+    static String nombre;
+    static String descripcion;
 
     public Actividad(int id_Actividad, String nombre, String descripcion) {
         this.id_Actividad = id_Actividad;
@@ -17,7 +17,33 @@ public class Actividad {
         this.descripcion = descripcion;
     }
 
-    static void insertar(Actividad actividad) {
+    public static int getId_Actividad() {
+        return id_Actividad;
+    }
+
+    public static String getNombre() {
+        return nombre;
+    }
+
+    public static String getDescripcion() {
+        return descripcion;
+    }
+
+    public static void setId_Actividad(int id_Actividad) {
+        Actividad.id_Actividad = id_Actividad;
+    }
+
+    public static void setNombre(String nombre) {
+        Actividad.nombre = nombre;
+    }
+
+    public static void setDescripcion(String descripcion) {
+        Actividad.descripcion = descripcion;
+    }
+
+    
+    
+    public static void insertar(Actividad actividad) {
         Connection connection = CreandoBaseDatos.conectando("localhost", "5432", "AMADB", "postgres", "1234");
         Statement stmt = null;
         try {
@@ -33,7 +59,7 @@ public class Actividad {
         }
     }
 
-    static ArrayList<Actividad> leer() {
+    public static ArrayList<Actividad> leer() {
         Connection connection = CreandoBaseDatos.conectando("localhost", "5432", "AMADB", "postgres", "1234");
         ArrayList<Actividad> lista = new ArrayList<Actividad>();
         Statement stmt = null;
@@ -58,7 +84,7 @@ public class Actividad {
 
     }
 
-    static void actualizar(Actividad actividad, int ID_ActividadOld) {
+    public static void actualizar(Actividad actividad, int ID_ActividadOld) {
         Connection connection = CreandoBaseDatos.conectando("localhost", "5432", "AMADB", "postgres", "1234");
         Statement stmt = null;
         try {
@@ -75,7 +101,7 @@ public class Actividad {
         }
     }
 
-    static void eliminar(int ID_Actividad) {
+    public static void eliminar(int ID_Actividad) {
         Connection connection = CreandoBaseDatos.conectando("localhost", "5432", "AMADB", "postgres", "1234");
         Statement stmt = null;
         try {
@@ -90,7 +116,7 @@ public class Actividad {
         }
     }
 
-    static ArrayList<Actividad> buscarXNombre(String nombre) {
+    public static ArrayList<Actividad> buscarXNombre(String nombre) {
         ArrayList<Actividad> lista = leer();
         ArrayList<Actividad> listaF = new ArrayList<Actividad>();
         for (Actividad a : lista) {

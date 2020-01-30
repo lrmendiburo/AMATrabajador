@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package CapaPresentacion;
+import CapaDatos.*;
 
 /**
  *
@@ -15,6 +16,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
      * Creates new form VentanaPrincipal
      */
     public VentanaPrincipal() {
+        CreandoBaseDatos.creandoBD();
+        CreandoBaseDatos.crearTablas();
         initComponents();
     }
 

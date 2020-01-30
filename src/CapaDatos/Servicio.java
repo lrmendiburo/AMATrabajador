@@ -8,12 +8,12 @@ import java.util.Date;
 
 public class Servicio {
 
-    int id_Servicio;
-    String mes;
-    Date fecha;
-    String nota;
-    int id_Oficina;
-    int id_Cliente;
+    static int id_Servicio;
+    static String mes;
+    static Date fecha;
+    static String nota;
+    static int id_Oficina;
+    static int id_Cliente;
 
     public Servicio(int id_Servicio, String mes, Date fecha, String nota, int id_Oficina, int id_Cliente) {
         this.id_Servicio = id_Servicio;
@@ -24,7 +24,57 @@ public class Servicio {
         this.id_Cliente = id_Cliente;
     }
 
-    static void insertar(Servicio servicio) {
+    public static int getId_Servicio() {
+        return id_Servicio;
+    }
+
+    public static String getMes() {
+        return mes;
+    }
+
+    public static Date getFecha() {
+        return fecha;
+    }
+
+    public static String getNota() {
+        return nota;
+    }
+
+    public static int getId_Oficina() {
+        return id_Oficina;
+    }
+
+    public static int getId_Cliente() {
+        return id_Cliente;
+    }
+
+    public static void setId_Servicio(int id_Servicio) {
+        Servicio.id_Servicio = id_Servicio;
+    }
+
+    public static void setMes(String mes) {
+        Servicio.mes = mes;
+    }
+
+    public static void setFecha(Date fecha) {
+        Servicio.fecha = fecha;
+    }
+
+    public static void setNota(String nota) {
+        Servicio.nota = nota;
+    }
+
+    public static void setId_Oficina(int id_Oficina) {
+        Servicio.id_Oficina = id_Oficina;
+    }
+
+    public static void setId_Cliente(int id_Cliente) {
+        Servicio.id_Cliente = id_Cliente;
+    }
+    
+    
+
+    public static void insertar(Servicio servicio) {
         Connection connection = CreandoBaseDatos.conectando("localhost", "5432", "AMADB", "postgres", "1234");
         Statement stmt = null;
         try {
@@ -42,7 +92,7 @@ public class Servicio {
         }
     }
 
-    static ArrayList<Servicio> leer() {
+    public static ArrayList<Servicio> leer() {
         Connection connection = CreandoBaseDatos.conectando("localhost", "5432", "AMADB", "postgres", "1234");
         ArrayList<Servicio> lista = new ArrayList<Servicio>();
         Statement stmt = null;
@@ -71,7 +121,7 @@ public class Servicio {
 
     }
 
-    static void actualizar(Servicio servicio, int id_ServicioOld) {
+    public static void actualizar(Servicio servicio, int id_ServicioOld) {
         Connection connection = CreandoBaseDatos.conectando("localhost", "5432", "AMADB", "postgres", "1234");
         Statement stmt = null;
         try {
@@ -94,7 +144,7 @@ public class Servicio {
         }
     }
 
-    static void eliminar(int id_Servicio) {
+    public static void eliminar(int id_Servicio) {
         Connection connection = CreandoBaseDatos.conectando("localhost", "5432", "AMADB", "postgres", "1234");
         Statement stmt = null;
         try {
@@ -109,7 +159,7 @@ public class Servicio {
         }
     }
 
-    static ArrayList<Servicio> buscarXFecha(Date fecha) {
+    public static ArrayList<Servicio> buscarXFecha(Date fecha) {
         ArrayList<Servicio> lista = leer();
         ArrayList<Servicio> listaF = new ArrayList<Servicio>();
         for (Servicio s : lista) {
@@ -120,7 +170,7 @@ public class Servicio {
         return listaF;
     }
 
-    public int contarServicio() {
+    public static int contarServicio() {
         int cantidad = 0;
         Connection connection = CreandoBaseDatos.conectando("localhost", "5432", "AMADB", "postgres", "1234");
         Statement stmt = null;

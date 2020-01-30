@@ -7,11 +7,11 @@ import java.util.ArrayList;
 
 public class Pago {
 
-    int id_Pago;
-    String concepto;
-    float monto;
-    String nota;
-    int id_Servicio;
+    static int id_Pago;
+    static String concepto;
+    static float monto;
+    static String nota;
+    static int id_Servicio;
 
     public Pago(int id_Pago, String concepto, float monto, String nota, int id_Servicio) {
         this.id_Pago = id_Pago;
@@ -21,7 +21,49 @@ public class Pago {
         this.id_Servicio = id_Servicio;
     }
 
-    static void insertar(Pago pago) {
+    public static int getId_Pago() {
+        return id_Pago;
+    }
+
+    public static String getConcepto() {
+        return concepto;
+    }
+
+    public static float getMonto() {
+        return monto;
+    }
+
+    public static String getNota() {
+        return nota;
+    }
+
+    public static int getId_Servicio() {
+        return id_Servicio;
+    }
+
+    public static void setId_Pago(int id_Pago) {
+        Pago.id_Pago = id_Pago;
+    }
+
+    public static void setConcepto(String concepto) {
+        Pago.concepto = concepto;
+    }
+
+    public static void setMonto(float monto) {
+        Pago.monto = monto;
+    }
+
+    public static void setNota(String nota) {
+        Pago.nota = nota;
+    }
+
+    public static void setId_Servicio(int id_Servicio) {
+        Pago.id_Servicio = id_Servicio;
+    }
+    
+    
+
+    public static void insertar(Pago pago) {
         Connection connection = CreandoBaseDatos.conectando("localhost", "5432", "AMADB", "postgres", "1234");
         Statement stmt = null;
         try {
@@ -38,7 +80,7 @@ public class Pago {
         }
     }
 
-    static ArrayList<Pago> leer() {
+    public static ArrayList<Pago> leer() {
         Connection connection = CreandoBaseDatos.conectando("localhost", "5432", "AMADB", "postgres", "1234");
         ArrayList<Pago> lista = new ArrayList<Pago>();
         Statement stmt = null;
@@ -65,7 +107,7 @@ public class Pago {
 
     }
 
-    static void actualizar(Pago pago, int id_PagoOld) {
+    public static void actualizar(Pago pago, int id_PagoOld) {
         Connection connection = CreandoBaseDatos.conectando("localhost", "5432", "AMADB", "postgres", "1234");
         Statement stmt = null;
         try {
@@ -86,7 +128,7 @@ public class Pago {
         }
     }
 
-    static void eliminar(int id_Pago) {
+    public static void eliminar(int id_Pago) {
         Connection connection = CreandoBaseDatos.conectando("localhost", "5432", "AMADB", "postgres", "1234");
         Statement stmt = null;
         try {
@@ -101,7 +143,7 @@ public class Pago {
         }
     }
 
-    static ArrayList<Pago> buscarXFecha(int id_Servicio) {
+    public static ArrayList<Pago> buscarXFecha(int id_Servicio) {
         ArrayList<Pago> lista = leer();
         ArrayList<Pago> listaF = new ArrayList<Pago>();
         for (Pago p : lista) {
@@ -112,7 +154,7 @@ public class Pago {
         return listaF;
     }
 
-    public int contarPago() {
+    public static int contarPago() {
         int cantidad = 0;
         Connection connection = CreandoBaseDatos.conectando("localhost", "5432", "AMADB", "postgres", "1234");
         Statement stmt = null;

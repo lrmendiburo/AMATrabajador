@@ -340,6 +340,7 @@ public class VentanaDJ08 extends javax.swing.JFrame {
         ventanaAdicionarIngreso.setVisible(true);
         ventanaAdicionarIngreso.mostrarMesOficina(mes, oficina);
         ventanaAdicionarIngreso.dj08();
+        ventanaAdicionarIngreso.ocultarID();
         this.dispose();        
     }//GEN-LAST:event_jButtonAdicionarActionPerformed
 

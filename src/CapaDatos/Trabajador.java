@@ -7,14 +7,14 @@ import java.util.ArrayList;
 
 public class Trabajador {
 
-    int id_Trabajador;
-    String nombre;
-    String apellido;
-    float salario;
-    int telefono1;
-    int telefono2;
-    int id_Oficina;
-    String usuario;
+    static int id_Trabajador;
+    static String nombre;
+    static String apellido;
+    static float salario;
+    static int telefono1;
+    static int telefono2;
+    static int id_Oficina;
+    static String usuario;
 
     public Trabajador(int id_Trabajador, String nombre, String apellido, float salario, int telefono1, int telefono2, int id_Oficina, String usuario) {
         this.id_Trabajador = id_Trabajador;
@@ -27,7 +27,73 @@ public class Trabajador {
         this.usuario = usuario;
     }
 
-    static void insertar(Trabajador trabajador) {
+    public static int getId_Trabajador() {
+        return id_Trabajador;
+    }
+
+    public static String getNombre() {
+        return nombre;
+    }
+
+    public static String getApellido() {
+        return apellido;
+    }
+
+    public static float getSalario() {
+        return salario;
+    }
+
+    public static int getTelefono1() {
+        return telefono1;
+    }
+
+    public static int getTelefono2() {
+        return telefono2;
+    }
+
+    public static int getId_Oficina() {
+        return id_Oficina;
+    }
+
+    public static String getUsuario() {
+        return usuario;
+    }
+
+    public static void setId_Trabajador(int id_Trabajador) {
+        Trabajador.id_Trabajador = id_Trabajador;
+    }
+
+    public static void setNombre(String nombre) {
+        Trabajador.nombre = nombre;
+    }
+
+    public static void setApellido(String apellido) {
+        Trabajador.apellido = apellido;
+    }
+
+    public static void setSalario(float salario) {
+        Trabajador.salario = salario;
+    }
+
+    public static void setTelefono1(int telefono1) {
+        Trabajador.telefono1 = telefono1;
+    }
+
+    public static void setTelefono2(int telefono2) {
+        Trabajador.telefono2 = telefono2;
+    }
+
+    public static void setId_Oficina(int id_Oficina) {
+        Trabajador.id_Oficina = id_Oficina;
+    }
+
+    public static void setUsuario(String usuario) {
+        Trabajador.usuario = usuario;
+    }
+    
+    
+
+    public static void insertar(Trabajador trabajador) {
         Connection connection = CreandoBaseDatos.conectando("localhost", "5432", "AMADB", "postgres", "1234");
         Statement stmt = null;
         try {
@@ -45,7 +111,7 @@ public class Trabajador {
         }
     }
 
-    static ArrayList<Trabajador> leer() {
+    public static ArrayList<Trabajador> leer() {
         Connection connection = CreandoBaseDatos.conectando("localhost", "5432", "AMADB", "postgres", "1234");
         ArrayList<Trabajador> lista = new ArrayList<Trabajador>();
         Statement stmt = null;
@@ -74,7 +140,7 @@ public class Trabajador {
         return lista;
     }
 
-    static void actualizar(Trabajador trabajador, int Id_TrabajadorOld) {
+    public static void actualizar(Trabajador trabajador, int Id_TrabajadorOld) {
         Connection connection = CreandoBaseDatos.conectando("localhost", "5432", "AMADB", "postgres", "1234");
         Statement stmt = null;
         try {
@@ -101,7 +167,7 @@ public class Trabajador {
         }
     }
 
-    static void eliminar(int Id_Trabajador) {
+    public static void eliminar(int Id_Trabajador) {
         Connection connection = CreandoBaseDatos.conectando("localhost", "5432", "AMADB", "postgres", "1234");
         Statement stmt = null;
         try {
@@ -116,7 +182,7 @@ public class Trabajador {
         }
     }
 
-    static ArrayList<Trabajador> buscarXFecha(String nombre) {
+    public static ArrayList<Trabajador> buscarXFecha(String nombre) {
         ArrayList<Trabajador> lista = leer();
         ArrayList<Trabajador> listaF = new ArrayList<Trabajador>();
         for (Trabajador t : lista) {
@@ -127,7 +193,7 @@ public class Trabajador {
         return listaF;
     }
 
-    public int contarTrabajador() {
+    public static int contarTrabajador() {
         int cantidad = 0;
         Connection connection = CreandoBaseDatos.conectando("localhost", "5432", "AMADB", "postgres", "1234");
         Statement stmt = null;

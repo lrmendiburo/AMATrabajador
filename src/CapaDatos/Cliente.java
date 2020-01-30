@@ -7,19 +7,19 @@ import java.util.ArrayList;
 
 public class Cliente {
 
-    int id_Cliente;
-    String nombre;
-    String apellido;
-    String direccion;
-    String municipio;
-    int telefono1;
-    int telefono2;
-    float servicio;
-    String nota;
-    boolean esTitular;
-    boolean tieneTitular;
-    int id_ClienteTitular;
-    int id_Oficina;
+    static int id_Cliente;
+    static String nombre;
+    static String apellido;
+    static String direccion;
+    static String municipio;
+    static int telefono1;
+    static int telefono2;
+    static float servicio;
+    static String nota;
+    static boolean esTitular;
+    static boolean tieneTitular;
+    static int id_ClienteTitular;
+    static int id_Oficina;
 
     public Cliente(int id_Cliente, String nombre, String apellido, String direccion, String municipio, int telefono1, int telefono2, float servicio, String nota, boolean esTitular, boolean tieneTitular, int id_ClienteTitular, int id_Oficina) {
         this.id_Cliente = id_Cliente;
@@ -37,7 +37,111 @@ public class Cliente {
         this.id_Oficina = id_Oficina;
     }
 
-    static void insertar(Cliente cliente_Contratado) {
+    public static int getId_Cliente() {
+        return id_Cliente;
+    }
+
+    public static String getNombre() {
+        return nombre;
+    }
+
+    public static String getApellido() {
+        return apellido;
+    }
+
+    public static String getDireccion() {
+        return direccion;
+    }
+
+    public static String getMunicipio() {
+        return municipio;
+    }
+
+    public static int getTelefono1() {
+        return telefono1;
+    }
+
+    public static int getTelefono2() {
+        return telefono2;
+    }
+
+    public static float getServicio() {
+        return servicio;
+    }
+
+    public static String getNota() {
+        return nota;
+    }
+
+    public static boolean isEsTitular() {
+        return esTitular;
+    }
+
+    public static boolean isTieneTitular() {
+        return tieneTitular;
+    }
+
+    public static int getId_ClienteTitular() {
+        return id_ClienteTitular;
+    }
+
+    public static int getId_Oficina() {
+        return id_Oficina;
+    }
+
+    public static void setId_Cliente(int id_Cliente) {
+        Cliente.id_Cliente = id_Cliente;
+    }
+
+    public static void setNombre(String nombre) {
+        Cliente.nombre = nombre;
+    }
+
+    public static void setApellido(String apellido) {
+        Cliente.apellido = apellido;
+    }
+
+    public static void setDireccion(String direccion) {
+        Cliente.direccion = direccion;
+    }
+
+    public static void setMunicipio(String municipio) {
+        Cliente.municipio = municipio;
+    }
+
+    public static void setTelefono1(int telefono1) {
+        Cliente.telefono1 = telefono1;
+    }
+
+    public static void setTelefono2(int telefono2) {
+        Cliente.telefono2 = telefono2;
+    }
+
+    public static void setServicio(float servicio) {
+        Cliente.servicio = servicio;
+    }
+
+    public static void setNota(String nota) {
+        Cliente.nota = nota;
+    }
+
+    public static void setEsTitular(boolean esTitular) {
+        Cliente.esTitular = esTitular;
+    }
+
+    public static void setTieneTitular(boolean tieneTitular) {
+        Cliente.tieneTitular = tieneTitular;
+    }
+
+    public static void setId_ClienteTitular(int id_ClienteTitular) {
+        Cliente.id_ClienteTitular = id_ClienteTitular;
+    }
+
+    public static void setId_Oficina(int id_Oficina) {
+        Cliente.id_Oficina = id_Oficina;
+    }
+
+    public static void insertar(Cliente cliente_Contratado) {
         Connection connection = CreandoBaseDatos.conectando("localhost", "5432", "AMADB", "postgres", "1234");
         Statement stmt = null;
         try {
@@ -67,7 +171,7 @@ public class Cliente {
         }
     }
 
-    static ArrayList<Cliente> leer() {
+    public static ArrayList<Cliente> leer() {
         Connection connection = CreandoBaseDatos.conectando("localhost", "5432", "AMADB", "postgres", "1234");
         ArrayList<Cliente> lista = new ArrayList<Cliente>();
         Statement stmt = null;
@@ -102,7 +206,7 @@ public class Cliente {
 
     }
 
-    static void actualizar(Cliente cliente, int id_ClienteOld) {
+    public static void actualizar(Cliente cliente, int id_ClienteOld) {
         Connection connection = CreandoBaseDatos.conectando("localhost", "5432", "AMADB", "postgres", "1234");
         Statement stmt = null;
         try {
@@ -144,7 +248,7 @@ public class Cliente {
         }
     }
 
-    static void eliminar(int id_Cliente) {
+    public static void eliminar(int id_Cliente) {
         Connection connection = CreandoBaseDatos.conectando("localhost", "5432", "AMADB", "postgres", "1234");
         Statement stmt = null;
         try {
@@ -159,7 +263,7 @@ public class Cliente {
         }
     }
 
-    static ArrayList<Cliente> buscarXNombre(String nombre) {
+    public static ArrayList<Cliente> buscarXNombre(String nombre) {
         ArrayList<Cliente> lista = leer();
         ArrayList<Cliente> listaF = new ArrayList<Cliente>();
         for (Cliente ct : lista) {
@@ -170,7 +274,7 @@ public class Cliente {
         return listaF;
     }
 
-    public int contarCliente() {
+    public static int contarCliente() {
         int cantidad = 0;
         Connection connection = CreandoBaseDatos.conectando("localhost", "5432", "AMADB", "postgres", "1234");
         Statement stmt = null;

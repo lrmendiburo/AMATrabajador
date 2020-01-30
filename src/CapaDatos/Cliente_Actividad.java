@@ -7,13 +7,31 @@ import java.util.ArrayList;
 
 public class Cliente_Actividad {
 
-    int id_Cliente;
-    int id_Actividad;
+    static int id_Cliente;
+    static int id_Actividad;
 
     public Cliente_Actividad(int id_ClienteTitular, int id_Actividad) {
         this.id_Cliente = id_ClienteTitular;
         this.id_Actividad = id_Actividad;
     }
+
+    public static int getId_Cliente() {
+        return id_Cliente;
+    }
+
+    public static int getId_Actividad() {
+        return id_Actividad;
+    }
+
+    public static void setId_Cliente(int id_Cliente) {
+        Cliente_Actividad.id_Cliente = id_Cliente;
+    }
+
+    public static void setId_Actividad(int id_Actividad) {
+        Cliente_Actividad.id_Actividad = id_Actividad;
+    }
+    
+    
 
     static void insertar(Cliente_Actividad cliente_Actividad) {
         Connection connection = CreandoBaseDatos.conectando("localhost", "5432", "AMADB", "postgres", "1234");
